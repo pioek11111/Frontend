@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Światło</title>
+</head>
+<style>
+	* {margin: 0; padding: 0;}
+	#dark, #button, #room {position: absolute;}
+	
+	#room {
+		width: 100vw;
+		height: 100vh;
+		background-image: url("http://websamuraj.pl/swiatlo/sypialnia.png");
+		background-size: cover;
+		background-position: center;
+		z-index: 1;
+	}
+	
+	#dark {
+		width: 100vw;
+		height: 100vh;
+		background-color: black;
+		z-index: 2;
+		transition: all 1s ease;
+	}
+	
+	#button {
+		width: 100px;
+		height: 100px;
+		border: 50px solid greenyellow;
+		z-index: 3;
+		border-radius: 50%;
+		box-sizing: border-box;
+		top: 30px;
+		left: 30px;
+		animation: switchOff 300ms linear infinite alternate;
+	}
+	
+	#button:hover {
+		animation: none;
+	}
+	
+	#button:hover + #dark {
+		background-color: transparent;
+	}
+	
+	@keyframes switchOff {
+		0% {
+			border: 0px solid greenyellow;
+			opacity: 0;
+		}
+		
+		100% {
+			border: 50px solid greenyellow;
+			opacity: 1;
+		}
+	}
+	
+</style>
+<body>
+	<div id="room"></div>
+	<div id="button"></div>
+	<div id="dark"></div>
+</body>
+</html>
