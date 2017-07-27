@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+				<meta charset="utf-8">
+				<title>Tennis Game</title>
+	<style>
+		body {
+			margin: 0; 
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			background-color: darkgray;
+		}
+		canvas {
+			border: 3px solid #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas></canvas>	
+	<script>
+		const canvas = document.querySelector('canvas');
+		const ctx = canvas.getContext('2d');
+		
+		canvas.width = 1000;
+		canvas.height = 500;
+		const cw = canvas.width;
+		const ch = canvas.height;
+		const ballSize = 20;
+		let ballX = (cw-ballSize)/2;
+		let ballY = (ch-ballSize)/2;
+		const paddeHeight = 100;
+		const paddeWidth = 20;
+		const playerX = 70;
+		const aIX = 910;
+		let playerY = 200;
+		let aIY = 200;
+		const lineWidth = 6;
+		const lineHeight = 16;
+		let ballSpeedX = 1;
+		let ballSpeedY = 1;
+		
+		function player() {
+			ctx.fillStyle = 'green';
+			ctx.fillRect(playerX, playerY, paddeWidth, paddeHeight);
+		}
+		
+		function ai() {
+			ctx.fillStyle = 'yellow';
+			ctx.fillRect(aIX, aIY, paddeWidth, paddeHeight);
+		}
+		
+		function ball(){
+			ctx.fillStyle = '#fff';
+			ctx.fillRect(ballX, ballY, ballSize, ballSize);
+			
+			ballX += ballSpeedX;
+			ballY += ballSpeedY;
+		}
+		
+		function table() {
+			ctx.fillStyle = 'black';
+			ctx.fillRect(0,0,cw,ch);
+		}
+		
+		function line() {
+			let position = 20;
+			while(position < ch)
+			{
+				ctx.fillStyle = 'gray';
+				ctx.fillRect((cw-lineWidth)/2, position, lineWidth, lineHeight);
+				position += 30;
+			}
+		}
+		
+		function game() {
+			table();
+			line();
+			ball();
+			player();
+			ai();		
+		}
+		setInterval(game, 50);
+		
+	</script>
+</body>
+</html>
