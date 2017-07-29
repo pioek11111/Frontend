@@ -34,7 +34,7 @@
 		let ballY = (ch-ballSize)/2;
 		const paddeHeight = 100;
 		const paddeWidth = 20;
-		const playerX = 70;
+		let playerX = 70;
 		const aIX = 910;
 		let playerY = 200;
 		let aIY = 200;
@@ -42,6 +42,7 @@
 		const lineHeight = 16;
 		let ballSpeedX = 2;
 		let ballSpeedY = 2;
+		const topCanvas = canvas.offsetTop;
 		
 		function player() {
 			ctx.fillStyle = 'green';
@@ -83,6 +84,11 @@
 				position += 30;
 			}
 		}
+		function playerPosition(event) {			
+			playerY = event.pageY - topCanvas - paddeHeight/2;
+			console.log(playerX);
+		}
+		canvas.addEventListener("mousemove", playerPosition);
 		
 		function game() {
 			table();
