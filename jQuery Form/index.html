@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Project: Word game </title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            form {
+                font-size: 1.5em;
+            }
+            .scrambled, input, button {
+                font-family: monospace;
+                font-size: 2em;
+            }
+            .wrong {
+                color: red;
+            }
+            .good {
+                 color: green;
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+    <h1>Word game!</h1>
+    <form id="joke-form">
+        <label>
+            Unscramble these letters to form a word:<Br>
+            <span class="scrambled">REYJUQ</span>
+            <br>
+            <input type="text" size="10">
+        </label>
+        <button type="submit">Check</button>
+<div class=""id = "result"></div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        // when the user submits the form,
+        //   check that their answer is correct
+        //   and show them appropriate message
+        $("#joke-form").on("submit", function(event) {
+            event.preventDefault();
+            var label = $("this").find("label");
+            var answer = $("label").find("input").val();
+            if(answer.toUpperCase() === 'JQUERY') {
+                console.log("ok");
+                $("#result").removeClass("wrong");
+                 $("#result").addClass("good");
+                $("#result").text("ok");
+            } else {
+                 $("#result").removeClass("good");
+                 $("#result").addClass("wrong");
+                 
+                 $("#result").text("wrong");
+            }
+            
+        })
+    </script>
+    </body>
+</html>
