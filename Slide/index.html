@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Project: Interactive slideshow</title>
+        <style>
+            img {
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <br>
+    <img src="https://www.kasandbox.org/programming-images/food/mushroom.png" width="400" alt="Mushrooms">
+    <img src="https://www.kasandbox.org/programming-images/animals/cat.png" width="400" alt="Mushrooms">
+    <img src="https://www.kasandbox.org/programming-images/animals/butterfly.png" width="400" alt="Mushrooms">
+    <img src="https://www.kasandbox.org/programming-images/animals/horse.png" width="400" alt="Mushrooms">
+    <button id="prev" type="button">Prev</button>
+    <button id="next" type="button">Next ➡</button>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+    var images = $("img");
+    var i = 0;
+    images.each(function(idx, elem){
+        $(elem).hide();
+    })
+    $(images[i]).slideDown();
+    //$("img").hide();
+    //$("img").slideDown();
+    $("#next").on("click", function(event) {
+        $(images[i++]).hide();
+        $(images[i]).slideDown();
+    })
+    $("#prev").on("click", function(event) {
+        $(images[i--]).hide();
+        $(images[i]).show();
+        $(images[i]).animate({
+            width: "150px",
+            borderWidth: "20px" 
+        });
+    })
+    </script> 
+    
+    </body>
+</html>
