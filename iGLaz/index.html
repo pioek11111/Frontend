@@ -1,23 +1,48 @@
 <html>
  <head>
  <title>iGłaz - Wirtualny Kamienny Ulubieniec</title>
-	 
+ <script type="text/javascript" src="cookie.js"></script>
   <script type="text/javascript">
- function touchRock() {
-	 console.log("click");
- var userName = prompt("Jak masz na imię?", "Wpisz swoje imię.");
- if (userName) {
- alert("Miło Cię poznać, " + userName + ".");
- document.getElementById("rockImg").src = "rock_happy.png";
- }
- }
+	var userName;
+ 	function touchRock() {
+		 if (userName) {
+		 	alert("Lubię, jak się mną interesujesz , " + userName + ". Dziękuję.");
+		 }
+		 else {
+		 	 userName = prompt("Jak masz na imię?", "Podaj swoje imię .");
+			 if (userName) {
+				 alert("Miło Cię poznać, " + userName + ".");
+				 writeCookie("irock_username", userName , 5 * 365);
+			 }
+		 }
+		 document.getElementById("rockImg").src = "rock_happy.png";
+		 setTimeout("document.getElementById('rockImg').src = 'rock.png';", 5 * 60 * 1000);
+	 }
+	  
+	 //setTimeout("document.getElementById('rockImg').src='rock.png';", 1*60*1000);
+	  
+	 function size() {		  
+	  	document.getElementById("rockImg").style.height = (document.body.clientHeight - 100) * 0.9;
+	 }
+	  
+	 function greetUser() {
+		 userName = readCookie("irock_username");
+		 if (userName)
+			alert("Witam "+ userName + ", już się za Tobą stęskniłem");
+		 else
+
+			 alert('Witam, jestem Twoim wirtualnym ulubieńcem.')
+	  }
  </script>
-	 
+
  </head>
- <body  onload="alert('Witaj, jestem Twoim kamiennym ulubieńcem.');">
+ <body  onload="size(); greetUser();" onresize="size();">
  <div style="margin-top:100px; text-align:center">
  <img onclick="touchRock()" id="rockImg" src="rock.png" alt="iGłaz" style="cursor:pointer" />
- </div>
 	 
+ </div>
+	 <script>
+		 
+	 </script>
  </body>
 </html>
