@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>Banolot - Personalizowane reklamy podniebne</title>
+
+    <link rel="stylesheet" type="text/css" href="bannerocity.css" />
+	  <style>
+		  span {
+			  color: red;
+		  }
+	  </style>
+    <script type="text/javascript">
+		function validateZIPCode(inputField, helpText) {
+		 // Najpierw sprawdzamy, czy długość pola jest różna od 5
+		 if (inputField.value.length != 5) {
+			 // Dane nie są prawidłowe, wyświetlamy zatem komunikat o błędzie
+			 if (helpText != null)
+			 helpText.innerHTML = "Wpisz dokładnie pięć cyfr.";
+			 return false;
+		 }
+		 // Teraz sprawdzamy, czy w polu wpisano liczbę
+		 else if (isNaN(inputField.value)) {
+			 // Dane nie są prawidłowe, wyświetlamy zatem komunikat o błędzie
+			 if (helpText != null)
+			 helpText.innerHTML = "Proszę wpisać same cyfry.";
+			 return false;
+		 }
+		 else {
+			 // Dane są w porządku, usuwamy komunikat o błędzie
+			 if (helpText != null)
+			 helpText.innerHTML = "";
+			 return true;
+		 }
+		}
+	  function validateLength(min, max, inputField, helpText)	{		  
+          if (inputField.value.length > max || inputField.value.length < min) {
+			  if (helpText != null)
+				  helpText.innerHTML = "Maksymalna długość wynosi 32 znaki, a min 1";
+			  return false;
+        }
+
+        if (helpText != null)
+			helpText.innerHTML = "";
+ 		return true;
+	  }
+      function validateNonEmpty(inputField, helpText) {
+        // Sprawdzamy czy pole zawiera jakąkolwiek treść
+        if (inputField.value.length == 0) {
+          // Dane nie są prawidłowe, informujemy o tym użytkownika
+          if (helpText != null)
+			  helpText.innerHTML = "Proszę podać wartość.";
+          return false;
+        }
+
+        if (helpText != null)
+			helpText.innerHTML = "";
+ 		return true;
+      }
+
+      function placeOrder(form) {
+        if (validateNonEmpty(form["message"], form["message_help"]) &&
+          validateNonEmpty(form["zipcode"], form["zipcode_help"]) &&
+          validateNonEmpty(form["date"], form["date_help"]) &&
+          validateNonEmpty(form["name"], form["name_help"]) &&
+          validateNonEmpty(form["phone"], form["phone_help"]) &&
+          validateNonEmpty(form["email"], form["email_help"])) {
+          // Przesyłamy zamówienie na serwer
+          form.submit();
+        } else {
+          alert("Przykro mi, ale podane informacje nie są prawidłowe.");
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="document.getElementById('message').focus()">
+    <div class="heading">
+      <img id="logo" src="logo.png" alt="Banerolot" />
+    </div>
+
+    <form name="orderform" action="bannerocity.php" method="POST">
+      <div class="field">
+        Podaj treść reklamy:
+        <input id="message" name="message" type="text" size="60"
+          onblur="validateLength(1, 32, this, document.getElementById('message_help'))" />
+        <span id="message_help" class="help"></span>
+      </div>
+      <div class="field">
+        Podaj kod pocztowy miejsca docelowego:
+        <input id="zipcode" name="zipcode" type="text" size="5"
+          onblur="validateZIPCode(this, document.getElementById('zipcode_help'))" />
+        <span id="zipcode_help" class="help"></span>
+      </div>
+      <div class="field">
+        Podaj datę przelotu:
+        <input id="date" name="date" type="text" size="10"
+          onblur="validateNonEmpty(this, document.getElementById('date_help'))" />
+        <span id="date_help" class="help"></span>
+      </div>
+      <div class="field">
+        Podaj personalia:
+        <input id="name" name="name" type="text" size="32"
+          onblur="validateNonEmpty(this, document.getElementById('name_help'))" />
+        <span id="name_help" class="help"></span>
+      </div>
+      <div class="field">
+        Podaj numer telefonu:
+        <input id="phone" name="phone" type="text" size="12"
+          onblur="validateNonEmpty(this, document.getElementById('phone_help'))" />
+        <span id="phone_help" class="help"></span>
+      </div>
+      <div class="field">
+        Podaj adres e-mail:
+        <input id="email" name="email" type="text" size="32"
+          onblur="validateNonEmpty(this, document.getElementById('email_help'))" />
+        <span id="email_help" class="help"></span>
+      </div>
+      <input type="button" value="Zamawiam reklamę" onclick="placeOrder(this.form);" />
+    </form>
+  </body>
+</html>
