@@ -55,7 +55,46 @@
 			helpText.innerHTML = "";
  		return true;
       }
-
+	  
+	  function validateRegEx(regex, input, helpText, helpMessage) {
+		// Sprawdzamy, czy dane wejściowe są w porządku
+		console.log(regex);
+		if (!regex.test(input)) {
+			// Dane są nieprawidłowe, a zatem wyświetlamy komunikat i zwracamy false
+			if (helpText != null)
+				helpText.innerHTML = helpMessage;
+			return false;
+		}
+		else {
+			// Dane są OK, zatem czyścimy komunikat i zwracamy true
+			if (helpText != null)
+				helpText.innerHTML = "";
+			return true;
+		}
+	  }	
+	  function validateDate(inputField, helpText) {
+		  var regex = /^\d{2}\/\d{2}\/\d{4}$/;
+		  if (!validateNonEmpty(inputField, helpText)) {
+			  return false;
+		  }
+		  return validateRegEx(regex, inputField.value, helpText, "Zła data")
+	  }
+		
+	  function validatePhone(inputField, helpText) {
+		 // Najpierw sprawdzamy, czy pole zawiera jakieś dane
+		 if (!validateNonEmpty(inputField, helpText))
+		 	return false;
+		 // Następnie sprawdzamy, czy wartość wpisana w polu jest numerem telefonu
+		 return validateRegEx(/^\d{3}-\d{4}$/, inputField.value, helpText, "Proszę podać prawidłowy numer telefonu (na przykład 123-4567).");
+	  }
+		
+	  function validateEmail(inputField, helpText) {
+		 // Najpierw sprawdzamy, czy pole zawiera jakieś dane
+		 if (!validateNonEmpty(inputField, helpText))
+		 	return false;
+		 // Następnie sprawdzamy, czy wartość wpisana w polu jest adresem e-mail
+		 return validateRegEx(/^[\w\.\-_\+]+@[\w-]+(\.\w{2,4})+$/, inputField.value, helpText, "Nieprawidłowy adres email");
+	  }
       function placeOrder(form) {
         if (validateNonEmpty(form["message"], form["message_help"]) &&
           validateNonEmpty(form["zipcode"], form["zipcode_help"]) &&
@@ -63,7 +102,6 @@
           validateNonEmpty(form["name"], form["name_help"]) &&
           validateNonEmpty(form["phone"], form["phone_help"]) &&
           validateNonEmpty(form["email"], form["email_help"])) {
-          // Przesyłamy zamówienie na serwer
           form.submit();
         } else {
           alert("Przykro mi, ale podane informacje nie są prawidłowe.");
@@ -93,7 +131,7 @@
       <div class="field">
         Podaj datę przelotu:
         <input id="date" name="date" type="text" size="10"
-          onblur="validateNonEmpty(this, document.getElementById('date_help'))" />
+          onblur="validateDate(this, document.getElementById('date_help'))" />
         <span id="date_help" class="help"></span>
       </div>
       <div class="field">
@@ -105,7 +143,7 @@
       <div class="field">
         Podaj numer telefonu:
         <input id="phone" name="phone" type="text" size="12"
-          onblur="validateNonEmpty(this, document.getElementById('phone_help'))" />
+          onblur="validatePhone(this, document.getElementById('phone_help'))" />
         <span id="phone_help" class="help"></span>
       </div>
       <div class="field">
